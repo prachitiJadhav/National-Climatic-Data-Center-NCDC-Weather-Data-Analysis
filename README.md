@@ -10,17 +10,56 @@ To process and analyze NCDC weather data to calculate averages, ranges, and visi
 
 ### Part 1: Average Wind Direction Calculation with Hadoop
 
-- **Goal**: Calculate the monthly average wind direction for each year.
-- **Method**: Develop Mapper and Reducer applications in Python and execute them using Hadoop Streaming.
-- **Commands**:
+#### Goal
+Calculate the monthly average wind direction for each observation month from each year in the NCDC weather dataset. This involves processing records to identify and average wind direction values, excluding missing values (coded as '999') and considering only records with good quality ('[01459]').
+
+#### Development Steps
+1. **Create Mapper and Reducer Scripts**: Develop Python scripts to serve as the Mapper (`avg_temp_map.py`) and Reducer (`avg_temp_reduce.py`). These scripts will process the input data to calculate the average wind direction.
+
+2. **Set Execution Permissions**: Before running the scripts, ensure they are executable.
     ```bash
     chmod +x avg_temp_map.py
     chmod +x avg_temp_reduce.py
-    # Testing locally
-    echo "0067011990999991950051507004+68750+023550FM-12+038299999V0203301N00671220001CN9999999N9+00001+99999999999" | ./avg_temp_map.py | sort -k1,1 | ./avg_temp_reduce.py
-    # Running on Hadoop
-    hadoop jar hadoop-streaming-2.7.3.jar -file avg_temp_map.py -mapper avg_temp_map.py -file avg_temp_reduce.py -reducer avg_temp_reduce.py -input /project/ProjectData/* -output /outputproject10
     ```
+
+3. **Local Testing**: Test the Mapper and Reducer scripts locally to ensure they work as expected. Use a sample input line from the NCDC dataset.
+    ```bash
+    echo "0067011990999991950051507004+68750+023550FM-12+038299999V0203301N00671220001CN9999999N9+00001+99999999999" | ./avg_temp_map.py | sort -k1,1 | ./avg_temp_reduce.py
+    ```
+
+4. **Copy Data to HDFS**: Before running the Hadoop job, copy the project data from the local filesystem to HDFS.
+    ```bash
+    hdfs dfs -copyFromLocal /home/student9/ProjectData/ /home/9student9/project/
+
+    ```
+
+5. **Execute Hadoop Streaming Job**: Run the Hadoop streaming job with the Mapper and Reducer scripts.
+    ```bash
+    
+    hadoop jar hadoop-streaming-2.7.3.jar
+    -file /home/student9/avg_temp_map.py    -mapper /home/student9/avg_temp_map.py
+    -file /home/student9/avg_temp_reduce.py   -reducer /home/student9/avg_temp_reduce.py
+    -input /home/9student9/project/ProjectData/*
+    -output /home/9student9/outputproject10
+
+    ```
+
+    Replace `/path/to/hadoop-streaming-2.7.3.jar` with the actual path to your `hadoop-streaming.jar`.
+
+6. **Verify Output**: After the job completes, check the output files in HDFS.
+    ```bash
+    hdfs dfs -ls /home/9student9/outputproject10/
+    hdfs dfs -cat /home/9student9/outputproject10/part-*
+    ```
+
+7. **Copy Output to Local Filesystem**: Optionally, you can copy the output files from HDFS to your local filesystem for further analysis or backup.
+    ```bash
+    hdfs dfs -copyToLocal /home/9student9/outputproject10/ /home/student9/ProjectData/
+    ```
+
+#### Note
+Ensure that the input data and scripts are correctly prepared and located in the specified directories. Adjust paths as necessary to fit your environment and Hadoop setup.
+
 
 ### Part 2: Sky Ceiling Height Range Calculation with PySpark
 
