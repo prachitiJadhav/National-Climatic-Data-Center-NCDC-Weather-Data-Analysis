@@ -187,6 +187,8 @@ Perform data analysis tasks on the visibility distance data extracted in Part 3 
     DUMP records;
     DESCRIBE records;
     ```
+    ![Image1](https://github.com/prachitiJadhav/National-Climatic-Data-Center-NCDC-Weather-Data-Analysis/blob/main/Part%204/Pig/Images/Picture1.png)
+    ![Image2](https://github.com/prachitiJadhav/National-Climatic-Data-Center-NCDC-Weather-Data-Analysis/blob/main/Part%204/Pig/Images/Picture2.png)
 
 3. **Group and Aggregate Data**:
    - Group the data by weather station ID (`id`) and calculate the range of visibility distances for each group.
@@ -197,6 +199,8 @@ Perform data analysis tasks on the visibility distance data extracted in Part 3 
     visibility_range = FOREACH grouped_records GENERATE group, MAX(records.visibility) - MIN(records.visibility);
  
     ```
+    ![Image3](https://github.com/prachitiJadhav/National-Climatic-Data-Center-NCDC-Weather-Data-Analysis/blob/main/Part%204/Pig/Images/Picture3.png)
+    
 
 4. **Display Results**:
    - Output the computed visibility ranges.
@@ -205,6 +209,8 @@ Perform data analysis tasks on the visibility distance data extracted in Part 3 
     ILLUSTRATE visibility_range;
 
     ```
+    ![Image4](https://github.com/prachitiJadhav/National-Climatic-Data-Center-NCDC-Weather-Data-Analysis/blob/main/Part%204/Pig/Images/Picture4.png)
+    ![Image5](https://github.com/prachitiJadhav/National-Climatic-Data-Center-NCDC-Weather-Data-Analysis/blob/main/Part%204/Pig/Images/Picture5.png)
 
 #### Hive Analysis
 Load the text file into Hive and get the average visibility distance for each USAF weather station ID.
