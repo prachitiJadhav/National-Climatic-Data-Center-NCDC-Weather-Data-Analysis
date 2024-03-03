@@ -169,18 +169,75 @@ The goal is to develop Mapper and Reducer applications that retrieve USAF weathe
 
 ### Part 4: Data Analysis with Pig and Hive
 
-- **Goal**: Further analyze the data to find the range of visibility distances and average visibility distance for each weather station ID using Pig and Hive.
-- **Pig Commands**:
+#### Objective
+Perform data analysis tasks on the visibility distance data extracted in Part 3 using both Pig and Hive. Specifically, calculate the range of visibility distances for each USAF weather station ID and compute the average visibility distance for each station ID.
+
+#### Pig Analysis
+
+1. **Start Pig Shell**:
+   - Launch the Pig shell to interactively execute Pig scripts.
     ```bash
     pig -x local
     ```
-- **Hive Commands**:
+
+2. **Load Data and Define Schema**:
+   - Load the text file containing visibility distance data into a Pig relation (`records`).
+    ```pig
+    records = LOAD 'ProjectData/question3output.txt' AS (id:int, visibility:int);
+    DUMP records;
+    DESCRIBE records;
+    ```
+
+3. **Group and Aggregate Data**:
+   - Group the data by weather station ID (`id`) and calculate the range of visibility distances for each group.
+    ```pig
+    grouped_records = GROUP records BY id;
+    DUMP grouped_records;
+    Describe grouped_records;
+    visibility_range = FOREACH grouped_records GENERATE group, MAX(records.visibility) - MIN(records.visibility);
+ 
+    ```
+
+4. **Display Results**:
+   - Output the computed visibility ranges.
+    ```pig
+    DUMP visibility_range;
+    ILLUSTRATE visibility_range;
+
+    ```
+
+#### Hive Analysis
+Load the text file into Hive and get the average visibility distance for each USAF weather station ID.
+
+
+1. **Load Data into Hive**:
+   - Start by creating a Hive table (`records9000`) to store the visibility distance data.
     ```sql
     DROP TABLE IF EXISTS records9000;
     CREATE TABLE records9000 (id INT, visibility INT) ROW FORMAT DELIMITED FIELDS TERMINATED BY '\t';
-    LOAD DATA LOCAL INPATH 'ProjectData/question3output.txt' INTO TABLE records9000;
-    SELECT id, AVG(visibility) FROM records9000 WHERE visibility != 99999 GROUP BY id;
     ```
+
+2. **Load Data**:
+   - Load the text file into the Hive table.
+    ```sql
+    LOAD DATA LOCAL INPATH 'ProjectData/question3output.txt'
+    OVERWRITE INTO TABLE records9000;
+    ```
+
+3. **Data Analysis**:
+   - Execute a Hive query to calculate the average visibility distance for each weather station ID, excluding missing values ('99999').
+    ```sql
+    SELECT id, AVG(visibility)
+    FROM records9000
+    WHERE visibility != 99999 
+    GROUP BY id;
+    ```
+
+#### Note
+- Adjust the paths, filenames, and table names in the Pig and Hive commands according to your project's directory structure and data schema.
+- Ensure that your Pig and Hive scripts accurately handle missing values and compute the desired analysis metrics.
+- The commands provided assume a Unix-like environment and may need adjustments for other operating systems.
+
 
 ## Data and Resources
 
