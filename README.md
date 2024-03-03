@@ -164,7 +164,7 @@ The goal is to develop Mapper and Reducer applications that retrieve USAF weathe
 #### Note
 - Ensure your Mapper and Reducer scripts are correctly implemented to filter out missing values and accurately process visibility distance data.
 - Adjust the paths and filenames in the commands according to your project's directory structure and Hadoop environment setup.
-- The commands provided assume a Unix-like environment and may need adjustments for other operating systems.
+
 
 
 ### Part 4: Data Analysis with Pig and Hive
@@ -242,7 +242,6 @@ Load the text file into Hive and get the average visibility distance for each US
 #### Note
 - Adjust the paths, filenames, and table names in the Pig and Hive commands according to your project's directory structure and data schema.
 - Ensure that your Pig and Hive scripts accurately handle missing values and compute the desired analysis metrics.
-- The commands provided assume a Unix-like environment and may need adjustments for other operating systems.
 
 
 ## Data and Resources
@@ -251,10 +250,6 @@ The dataset utilized in this project is sourced from the National Climatic Data 
 
 Submissions include developed applications (in Java or Python), text files generated, and a comprehensive list of commands used throughout the project for data processing and analysis tasks.
 
-## Visuals
-
-- (Optional) Include screenshots or visuals of your data analysis process, results, or any interesting findings here. Replace `path/to/image.png` with your image paths.
-    ![Data Analysis Visual](path/to/image.png)
 
 ## Conclusion
 
