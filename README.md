@@ -93,11 +93,14 @@ Calculate the range of sky ceiling heights for each weather station ID.
     hdfs dfs -ls /home/9student9/project/outputquestion0007/
     hdfs dfs -cat /home/9student9/project/outputquestion0007/part-00*
     ```
+    ![picture1](https://github.com/prachitiJadhav/National-Climatic-Data-Center-NCDC-Weather-Data-Analysis/blob/main/Part2/Images/Picture1.png)
+    ![picture2](https://github.com/prachitiJadhav/National-Climatic-Data-Center-NCDC-Weather-Data-Analysis/blob/main/Part2/Images/Picture2.png)
 
 4. **Copy Output to Local Filesystem**: If necessary, you can copy the output files from HDFS to your local filesystem for further analysis or for safekeeping.
     ```bash
     hdfs dfs -copyToLocal /home/9student9/project/outputquestion0007/ /home/student9/ProjectData/
     ```
+    ![picture3](https://github.com/prachitiJadhav/National-Climatic-Data-Center-NCDC-Weather-Data-Analysis/blob/main/Part2/Images/Picture3.png)
 
 #### Note
 - Ensure that your PySpark script (`pySpark_HeightID.py`) is correctly implemented to filter, map, reduce, and calculate the range of sky ceiling heights as specified.
