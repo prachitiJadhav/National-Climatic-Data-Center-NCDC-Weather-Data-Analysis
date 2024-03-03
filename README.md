@@ -26,15 +26,16 @@ Calculate the monthly average wind direction for each observation month from eac
     ```bash
     echo "0067011990999991950051507004+68750+023550FM-12+038299999V0203301N00671220001CN9999999N9+00001+99999999999" | ./avg_temp_map.py | sort -k1,1 | ./avg_temp_reduce.py
     ```
-    ![image1](Part 1/Images/Picture1.png)
+   
+   ![Data Analysis Visual](Part 1/Images/Picture1.png)
 
-4. **Copy Data to HDFS**: Before running the Hadoop job, copy the project data from the local filesystem to HDFS.
+5. **Copy Data to HDFS**: Before running the Hadoop job, copy the project data from the local filesystem to HDFS.
     ```bash
     hdfs dfs -copyFromLocal /home/student9/ProjectData/ /home/9student9/project/
 
     ```
 
-5. **Execute Hadoop Streaming Job**: Run the Hadoop streaming job with the Mapper and Reducer scripts.
+6. **Execute Hadoop Streaming Job**: Run the Hadoop streaming job with the Mapper and Reducer scripts.
     ```bash
     
     hadoop jar hadoop-streaming-2.7.3.jar
@@ -47,13 +48,13 @@ Calculate the monthly average wind direction for each observation month from eac
 
     Replace `/path/to/hadoop-streaming-2.7.3.jar` with the actual path to your `hadoop-streaming.jar`.
 
-6. **Verify Output**: After the job completes, check the output files in HDFS.
+7. **Verify Output**: After the job completes, check the output files in HDFS.
     ```bash
     hdfs dfs -ls /home/9student9/outputproject10/
     hdfs dfs -cat /home/9student9/outputproject10/part-*
     ```
 
-7. **Copy Output to Local Filesystem**: Optionally, you can copy the output files from HDFS to your local filesystem for further analysis or backup.
+8. **Copy Output to Local Filesystem**: Optionally, you can copy the output files from HDFS to your local filesystem for further analysis or backup.
     ```bash
     hdfs dfs -copyToLocal /home/9student9/outputproject10/ /home/student9/ProjectData/
     ```
