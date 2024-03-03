@@ -109,15 +109,56 @@ Calculate the range of sky ceiling heights for each weather station ID.
 
 ### Part 3: Visibility Distance Retrieval with Hadoop
 
-- **Goal**: Extract and record visibility distances along with weather station IDs.
-- **Method**: Develop Mapper and Reducer applications for data extraction and summarization.
-- **Commands**:
+#### Goal
+The goal is to develop Mapper and Reducer applications that retrieve USAF weather station ID and visibility distance (in meters) from NCDC records. It specifically targets records where '999999' indicates missing values and '[01459]' denote good quality values. The output should be a text file containing the USAF weather station ID and visibility distance data.
+
+#### Development Steps
+1. **Prepare Python Mapper and Reducer Scripts**:
+   - Develop a Mapper script (`map3.py`) to parse each line of the input data and extract the USAF weather station ID and visibility distance.
+   - Develop a Reducer script (`visibility_distance_reduce.py`) to aggregate and process data extracted by the Mapper.
+
+2. **Set Execution Permissions**: Before testing or running your scripts on Hadoop, ensure they have execution permissions.
     ```bash
     chmod +x map3.py
     chmod +x visibility_distance_reduce.py
-    # Running on Hadoop
-    hadoop jar hadoop-streaming-2.7.3.jar -file map3.py -mapper map3.py -file visibility_distance_reduce.py -reducer visibility_distance_reduce.py -input /project/ProjectData/* -output /outputproject03
     ```
+
+3. **Local Testing**:
+   - It's a good practice to test your Mapper and Reducer scripts locally before executing them on Hadoop.
+    ```bash
+    cat sample.txt | /home/student9/map3.py
+    cat sample.txt | /home/student9/map3.py | sort -k1,1 | /home/student9/visibility_distance_reduce.py
+    ```
+
+4. **Running on Hadoop**:
+   - Use Hadoop streaming to execute your Mapper and Reducer scripts. Make sure to specify the correct paths for your scripts and data.
+    ```bash
+    hadoop jar hadoop-streaming-2.7.3.jar
+    -file /home/student9/map3.py    -mapper /home/student9/map3.py
+    -file /home/student9/visibility_distance_reduce.py   -reducer /home/student9/visibility_distance_reduce.py
+    -input /home/9student9/project/ProjectData/*
+    -output /home/9student9/outputproject03
+
+    ```
+
+5. **Verifying Output**:
+   - After the Hadoop job completes, check the output to ensure it's as expected.
+    ```bash
+    hdfs dfs -ls /home/9student9/outputproject03/
+    hdfs dfs -cat /home/9student9/outputproject03/part-*
+    ```
+
+6. **Copy Output to Local Filesystem**:
+   - If needed, copy the output file from HDFS to your local filesystem for further use or analysis.
+    ```bash
+    hdfs dfs -copyToLocal /home/9student9/outputproject03/part-00000 /home/student9/ProjectData/question3output.txt
+    ```
+
+#### Note
+- Ensure your Mapper and Reducer scripts are correctly implemented to filter out missing values and accurately process visibility distance data.
+- Adjust the paths and filenames in the commands according to your project's directory structure and Hadoop environment setup.
+- The commands provided assume a Unix-like environment and may need adjustments for other operating systems.
+
 
 ### Part 4: Data Analysis with Pig and Hive
 
