@@ -12,7 +12,7 @@ To process and analyze NCDC weather data to calculate averages, ranges, and visi
 
 #### Goal
 Calculate the monthly average wind direction for each observation month from each year in the NCDC weather dataset. This involves processing records to identify and average wind direction values, excluding missing values (coded as '999') and considering only records with good quality ('[01459]').
-
+- **Method**: Develop Mapper and Reducer applications in Python and execute them using Hadoop Streaming.
 #### Development Steps
 1. **Create Mapper and Reducer Scripts**: Develop Python scripts to serve as the Mapper (`avg_temp_map.py`) and Reducer (`avg_temp_reduce.py`). These scripts will process the input data to calculate the average wind direction.
 
@@ -73,12 +73,36 @@ Ensure that the input data and scripts are correctly prepared and located in the
 
 ### Part 2: Sky Ceiling Height Range Calculation with PySpark
 
-- **Goal**: Calculate the range of sky ceiling heights for each weather station ID.
+#### Goal: 
+Calculate the range of sky ceiling heights for each weather station ID.
 - **Method**: Implement a Python application using PySpark.
-- **Commands**:
+
+
+
+#### Development Steps
+1. **Develop PySpark Application**: Write a Python script (`pySpark_HeightID.py`) that utilizes PySpark to process the NCDC weather dataset. The script should filter out missing values, compute the minimum and maximum sky ceiling heights for each station ID, and then calculate the range for each.
+
+2. **Running the PySpark Job**: Use the `spark-submit` command to run your PySpark application. Specify the master node (in this case, local), the path to your PySpark script, and the input and output directories.
     ```bash
-    spark-submit --master local pySpark_HeightID.py /project/ProjectData/* /project/outputquestion0007/
+    spark-submit --master local[2] pySpark_HeightID.py /home/9student9/project/ProjectData/* /home/9student9/project/outputquestion0007/
     ```
+    Adjust the `--master` option as needed for your environment (e.g., if running on a cluster, you might use `--master yarn`).
+
+3. **Verify Output**: After the PySpark job completes, check the output in HDFS to ensure it contains the expected range calculations for each weather station ID.
+    ```bash
+    hdfs dfs -ls /home/9student9/project/outputquestion0007/
+    hdfs dfs -cat /home/9student9/project/outputquestion0007/part-00*
+    ```
+
+4. **Copy Output to Local Filesystem**: If necessary, you can copy the output files from HDFS to your local filesystem for further analysis or for safekeeping.
+    ```bash
+    hdfs dfs -copyToLocal /home/9student9/project/outputquestion0007/ /home/student9/ProjectData/
+    ```
+
+#### Note
+- Ensure that your PySpark script (`pySpark_HeightID.py`) is correctly implemented to filter, map, reduce, and calculate the range of sky ceiling heights as specified.
+- Adjust the paths used in the commands to match your project directory structure and Hadoop/Spark environment.
+- The `local[2]` option in the `spark-submit` command specifies running in local mode with 2 cores. Adjust this according to the capabilities of your machine or the specifications of your cluster environment.
 
 ### Part 3: Visibility Distance Retrieval with Hadoop
 
