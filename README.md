@@ -31,6 +31,9 @@ Calculate the monthly average wind direction for each observation month from eac
 
 5. **Copy Data to HDFS**: Before running the Hadoop job, copy the project data from the local filesystem to HDFS.
     ```bash
+    cat sample.txt | /home/student9/avg_temp_map.py
+    cat sample.txt | /home/student9/avg_temp_map.py | sort -k1,1 | /home/student9/avg_temp_reduce.py
+    
     hdfs dfs -copyFromLocal /home/student9/ProjectData/ /home/9student9/project/
 
     ```
