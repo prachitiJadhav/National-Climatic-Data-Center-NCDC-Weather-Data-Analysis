@@ -37,7 +37,9 @@ Calculate the monthly average wind direction for each observation month from eac
     hdfs dfs -copyFromLocal /home/student9/ProjectData/ /home/9student9/project/
 
     ```
-
+    ![Part 1/Images/Picture1.png](https://github.com/prachitiJadhav/National-Climatic-Data-Center-NCDC-Weather-Data-Analysis/blob/main/Part%201/Images/Picture1.png)
+    ![Part 1/Images/Picture2.png](https://github.com/prachitiJadhav/National-Climatic-Data-Center-NCDC-Weather-Data-Analysis/blob/main/Part%201/Images/Picture2.png)
+   
 6. **Execute Hadoop Streaming Job**: Run the Hadoop streaming job with the Mapper and Reducer scripts.
     ```bash
     
@@ -56,11 +58,14 @@ Calculate the monthly average wind direction for each observation month from eac
     hdfs dfs -ls /home/9student9/outputproject10/
     hdfs dfs -cat /home/9student9/outputproject10/part-*
     ```
+   ![Part 1/Images/Picture3.png](https://github.com/prachitiJadhav/National-Climatic-Data-Center-NCDC-Weather-Data-Analysis/blob/main/Part%201/Images/Picture3.png)
+   ![Part 1/Images/Picture4.png](https://github.com/prachitiJadhav/National-Climatic-Data-Center-NCDC-Weather-Data-Analysis/blob/main/Part%201/Images/Picture4.png)
 
-8. **Copy Output to Local Filesystem**: Optionally, you can copy the output files from HDFS to your local filesystem for further analysis or backup.
+9. **Copy Output to Local Filesystem**: Optionally, you can copy the output files from HDFS to your local filesystem for further analysis or backup.
     ```bash
     hdfs dfs -copyToLocal /home/9student9/outputproject10/ /home/student9/ProjectData/
     ```
+    ![Part 1/Images/Picture5.png](https://github.com/prachitiJadhav/National-Climatic-Data-Center-NCDC-Weather-Data-Analysis/blob/main/Part%201/Images/Picture5.png)
 
 #### Note
 Ensure that the input data and scripts are correctly prepared and located in the specified directories. Adjust paths as necessary to fit your environment and Hadoop setup.
