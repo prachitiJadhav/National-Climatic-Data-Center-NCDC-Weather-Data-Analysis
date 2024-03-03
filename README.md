@@ -129,6 +129,9 @@ The goal is to develop Mapper and Reducer applications that retrieve USAF weathe
     cat sample.txt | /home/student9/map3.py
     cat sample.txt | /home/student9/map3.py | sort -k1,1 | /home/student9/visibility_distance_reduce.py
     ```
+    ![Image1](https://github.com/prachitiJadhav/National-Climatic-Data-Center-NCDC-Weather-Data-Analysis/blob/main/Part%203/Images/Picture1.png)
+   
+    ![Image2](https://github.com/prachitiJadhav/National-Climatic-Data-Center-NCDC-Weather-Data-Analysis/blob/main/Part%203/Images/Picture2.png)
 
 4. **Running on Hadoop**:
    - Use Hadoop streaming to execute your Mapper and Reducer scripts. Make sure to specify the correct paths for your scripts and data.
@@ -147,12 +150,16 @@ The goal is to develop Mapper and Reducer applications that retrieve USAF weathe
     hdfs dfs -ls /home/9student9/outputproject03/
     hdfs dfs -cat /home/9student9/outputproject03/part-*
     ```
+    ![Image3](https://github.com/prachitiJadhav/National-Climatic-Data-Center-NCDC-Weather-Data-Analysis/blob/main/Part%203/Images/Picture3.png)
+    ![Image4](https://github.com/prachitiJadhav/National-Climatic-Data-Center-NCDC-Weather-Data-Analysis/blob/main/Part%203/Images/Picture4.png)
 
 6. **Copy Output to Local Filesystem**:
    - If needed, copy the output file from HDFS to your local filesystem for further use or analysis.
     ```bash
     hdfs dfs -copyToLocal /home/9student9/outputproject03/part-00000 /home/student9/ProjectData/question3output.txt
     ```
+    ![Image5](https://github.com/prachitiJadhav/National-Climatic-Data-Center-NCDC-Weather-Data-Analysis/blob/main/Part%203/Images/Picture5.png)
+    
 
 #### Note
 - Ensure your Mapper and Reducer scripts are correctly implemented to filter out missing values and accurately process visibility distance data.
